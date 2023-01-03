@@ -66,7 +66,7 @@ const submitForm = (formEl) => {
       axios.post('/xkgw/ht/login/userLogin', dynamicValidateForm).then((res) => {
         if (res.retCode === 0) {
           localStorage.setItem('__login__', 'abc')
-          router.push('/home')
+          router.push('/shouye')
         } else {
           ElMessage.warning(res.message)
         }

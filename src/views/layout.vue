@@ -16,8 +16,20 @@
             default-active="1"
             text-color="#fff"
           >
-        <el-menu-item index="1" @click="onRouter('/home')">
+        <el-menu-item index="1" @click="onRouter('/shouye')">
           <span>首页</span>
+        </el-menu-item>
+        <el-menu-item index="2" @click="onRouter('/xinwen')">
+          <span>新闻资讯</span>
+        </el-menu-item>
+        <el-menu-item index="3" @click="onRouter('/chanpin')">
+          <span>旗下产品</span>
+        </el-menu-item>
+        <el-menu-item index="4" @click="onRouter('/women')">
+          <span>关于我们</span>
+        </el-menu-item>
+        <el-menu-item index="5" @click="onRouter('/jieshao')">
+          <span>公司介绍</span>
         </el-menu-item>
       </el-menu>
         </el-aside>

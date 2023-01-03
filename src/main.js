@@ -5,12 +5,12 @@ import ElementPlus, { ClickOutside, ElMessage } from 'element-plus'
 import 'element-plus/dist/index.css'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from './views/layout.vue'
-import Home from './views/home.vue'
-import News from './views/news.vue'
-import Good from './views/good.vue'
-import Wo from './views/wo.vue'
-import Comp from './views/comp.vue'
 import Login from './views/login.vue'
+import Shouye from './views/shouye.vue'
+import Xinwen from './views/xinwen.vue'
+import Chanpin from './views/chanpin.vue'
+import Women from './views/women.vue'
+import Jieshao from './views/jieshao.vue'
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -18,32 +18,32 @@ const router = createRouter({
       name: 'layout',
       path: '/layout',
       component: Layout,
-      redirect: '/home',
+      redirect: '/shouye',
       children: [
         {
-          name: 'home',
-          path: '/home',
-          component: Home,
+          name: 'shouye',
+          path: '/shouye',
+          component: Shouye,
         },
         {
-          name: 'news',
-          path: '/news',
-          component: News,
+          name: 'xinwen',
+          path: '/xinwen',
+          component: Xinwen,
         },
         {
-          name: 'good',
-          path: '/good',
-          component: Good,
+          name: 'chanpin',
+          path: '/chanpin',
+          component: Chanpin,
         },
         {
-          name: 'wo',
-          path: '/wo',
-          component: Wo,
+          name: 'women',
+          path: '/women',
+          component: Women,
         },
         {
-          name: 'comp',
-          path: '/comp',
-          component: Comp,
+          name: 'jieshao',
+          path: '/jieshao',
+          component: Jieshao,
         }
       ]
     },
