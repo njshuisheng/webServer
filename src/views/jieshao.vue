@@ -32,6 +32,13 @@
       <el-form :model="form" label-width="120px">
         <el-form-item label="地址">
           <el-input v-model="form.resource_url" />
+          <el-upload
+            :action="null"
+            :show-file-list="false"
+            :before-upload="beforeUpload"
+          >
+            <el-button style="margin-top: 5px;">上传</el-button>
+          </el-upload>
         </el-form-item>
         <el-form-item label="详情">
           <el-input v-model="form.detail" type="textarea" />
@@ -59,6 +66,18 @@ const form = reactive({
 const row = ref(null)
 const key = ref(5)
 const type = ref(6)
+
+function beforeUpload(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  axios.post('/xkgw/image/uploadImage', formData).then((res) => {
+    if (res.retCode === 0) {
+      form.resource_url = res.data
+    }
+  })
+
+  return false
+}
 
 function list() {
   axios.post('/xkgw/qt/getInformationBybutton', { key: key.value }).then((res) => {
