@@ -5,8 +5,11 @@
       <el-button type="primary" size="small" @click="add(3)">新增</el-button>
     </p>
     <el-table :data="products">
-      <el-table-column prop="resourceUrl" label="地址"></el-table-column>
+      <el-table-column prop="img_url" label="图片地址"></el-table-column>
+      <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="detail" label="详情"></el-table-column>
+      <el-table-column prop="href_url" label="链接地址"></el-table-column>
+      <el-table-column prop="count" label="数量"></el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
           <el-button
@@ -30,8 +33,8 @@
 
     <el-dialog v-model="visible" :title="state === 'add' ? '新增' : '修改'">
       <el-form :model="form" label-width="120px">
-        <el-form-item label="地址">
-          <el-input v-model="form.resourceUrl" />
+        <el-form-item label="图片地址">
+          <el-input v-model="form.imgUrl" />
           <el-upload
             :action="null"
             :show-file-list="false"
@@ -40,8 +43,17 @@
             <el-button style="margin-top: 5px;">上传</el-button>
           </el-upload>
         </el-form-item>
+        <el-form-item label="数量">
+          <el-input type="number" v-model="form.count" />
+        </el-form-item>
+        <el-form-item label="标题">
+          <el-input v-model="form.title" />
+        </el-form-item>
         <el-form-item label="详情">
           <el-input v-model="form.detail" type="textarea" />
+        </el-form-item>
+        <el-form-item label="链接地址">
+          <el-input v-model="form.hrefUrl" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="confirm">确认</el-button>
@@ -60,8 +72,13 @@ const products = ref([])
 const state = ref('add')
 const visible = ref(false)
 const form = reactive({
-  resourceUrl: '',
-  detail: ''
+  imgUrl: '',
+  count: 0,
+  isOn: 1,
+  proType: '1',
+  detail: '',
+  title: '',
+  hrefUrl: ''
 })
 const row = ref(null)
 const key = ref(3)
@@ -72,7 +89,7 @@ function beforeUpload(file) {
   formData.append('file', file)
   axios.post('/xkgw/image/uploadImage', formData).then((res) => {
     if (res.retCode === 0) {
-      form.resourceUrl = res.data
+      form.imgUrl = res.data
     }
   })
 
@@ -92,7 +109,10 @@ function edit(r, t) {
   row.value = r
   type.value = t
   form.detail = r.detail
-  form.resourceUrl = r.resourceUrl
+  form.count = r.count
+  form.title = r.title
+  form.hrefUrl = r.href_url
+  form.imgUrl = r.img_url
   visible.value = true
 }
 function del(r, t) {
@@ -123,7 +143,7 @@ function confirm() {
     data.id = row.value.id
   }
   axios
-    .post('/xkgw/ht/save', Object.assign(data, form, { key: key.value, type: type.value }))
+    .post('/xkgw/ht/save', Object.assign(data, form, { key: key.value, proType: type.value }))
     .then((res) => {
       if (res.retCode === 0) {
         ElMessage.success('操作成功！')
@@ -134,7 +154,7 @@ function confirm() {
 }
 
 function cancel() {
-  form.resourceUrl = ''
+  form.imgUrl = ''
   form.detail = ''
   state.value = 'add'
   visible.value = false

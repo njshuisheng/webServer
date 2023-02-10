@@ -36,7 +36,7 @@
           trigger: 'blur'
         }"
       >
-        <el-input size="large" v-model="dynamicValidateForm.password" />
+        <el-input type="password" size="large" v-model="dynamicValidateForm.password" />
       </el-form-item>
       <el-form-item>
         <el-button size="large" style="width: 100%" type="primary" @click="submitForm(formRef)">提交</el-button>

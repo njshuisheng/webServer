@@ -5,7 +5,7 @@
       <el-button type="primary" size="small" @click="add(6)">新增</el-button>
     </p>
     <el-table :data="dataList">
-      <el-table-column prop="resourceUrl" label="地址"></el-table-column>
+      <el-table-column prop="url" label="地址"></el-table-column>
       <el-table-column prop="detail" label="详情"></el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
@@ -31,7 +31,7 @@
     <el-dialog v-model="visible" :title="state === 'add' ? '新增' : '修改'">
       <el-form :model="form" label-width="120px">
         <el-form-item label="地址">
-          <el-input v-model="form.resourceUrl" />
+          <el-input v-model="form.url" />
           <el-upload
             :action="null"
             :show-file-list="false"
@@ -60,19 +60,19 @@ const dataList = ref([])
 const state = ref('add')
 const visible = ref(false)
 const form = reactive({
-  resourceUrl: '',
+  url: '',
   detail: ''
 })
 const row = ref(null)
 const key = ref(5)
-const type = ref(6)
+const type = ref(1)
 
 function beforeUpload(file) {
   const formData = new FormData()
   formData.append('file', file)
   axios.post('/xkgw/image/uploadImage', formData).then((res) => {
     if (res.retCode === 0) {
-      form.resourceUrl = res.data
+      form.url = res.data
     }
   })
 
@@ -92,7 +92,7 @@ function edit(r, t) {
   row.value = r
   type.value = t
   form.detail = r.detail
-  form.resourceUrl = r.resourceUrl
+  form.url = r.url
   visible.value = true
 }
 function del(r, t) {
